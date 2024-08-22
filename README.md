@@ -1,1 +1,1 @@
-# my-proyecto de progrmación 
+# my-proyecto de programación 

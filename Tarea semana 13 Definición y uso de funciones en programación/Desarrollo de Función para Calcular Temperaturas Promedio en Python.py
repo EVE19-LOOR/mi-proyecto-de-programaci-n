@@ -1,7 +1,4 @@
-# Crear una matriz 3D para almacenar datos de temperaturas
-# Primera dimensión: Ciudades (3 ciudades)
-# Segunda dimensión: Semanas (4 semanas)
-# Tercera dimensión: Días de la semana (7 días)
+# Función para Calcular Temperaturas
 temperaturas = [
     [  # Ciudad 1 Quito
         [  # Semana 1
@@ -13,7 +10,7 @@ temperaturas = [
             {"day": "Sábado", "temp": 88},
             {"day": "Domingo", "temp": 90}
         ],
-        [  # Semana 2 Guayaquil
+        [  # Semana 2
             {"day": "Lunes", "temp": 76},
             {"day": "Martes", "temp": 79},
             {"day": "Miércoles", "temp": 80},
@@ -41,7 +38,7 @@ temperaturas = [
             {"day": "Domingo", "temp": 91}
         ]
     ],
-    [  # Ciudad 2 Guayaquil
+    [  # Ciudad 2 Manabi
         [  # Semana 1
             {"day": "Lunes", "temp": 62},
             {"day": "Martes", "temp": 64},
@@ -79,12 +76,12 @@ temperaturas = [
             {"day": "Domingo", "temp": 80}
         ]
     ],
-    [  # Ciudad 3 Manabi
+    [  # Ciudad 3
         [  # Semana 1
             {"day": "Lunes", "temp": 90},
             {"day": "Martes", "temp": 62},
             {"day": "Miércoles", "temp": 54},
-            {"day": "Jueves", "temp": 71},
+            {"day": "Jueves", "temp": 90},
             {"day": "Viernes", "temp": 88},
             {"day": "Sábado", "temp": 75},
             {"day": "Domingo", "temp": 82}
@@ -92,7 +89,7 @@ temperaturas = [
         [  # Semana 2
             {"day": "Lunes", "temp": 89},
             {"day": "Martes", "temp": 91},
-            {"day": "Miércoles", "temp": 83},
+            {"day": "Miércoles", "temp": 88},
             {"day": "Jueves", "temp": 80},
             {"day": "Viernes", "temp": 77},
             {"day": "Sábado", "temp": 84},
@@ -119,26 +116,18 @@ temperaturas = [
     ]
 ]
 
-
 # Calcular el promedio de temperaturas para cada ciudad y semana
-def calcular_promedio_temperaturas(temperaturas):
-    promedios = []
-    for ciudad_index, ciudad in enumerate(temperaturas):
-        print(f"\nPromedios de temperaturas para Ciudad {ciudad_index + 1}:")
-        ciudad_promedios = []
-        for semana_index, semana in enumerate(ciudad):
-            suma = 0
-            for dia in semana:
-                suma += dia['temp']
-            promedio = suma / len(semana)
-            ciudad_promedios.append(promedio)
-            print(f"Semana {semana_index + 1}: {promedio:.2f}°C")
-        promedios.append(ciudad_promedios)
-    return promedios
+def calcular_promedio(ciudad):
+    ciudad_promedios = []  # Inicializar la lista para almacenar promedios
+    for semana_index, semana in enumerate(ciudad, start=1):
+        suma = sum(dia['temp'] for dia in semana)
+        promedio = suma / len(semana)
+        ciudad_promedios.append(promedio)
+        print(f"Semana {semana_index}: promedio de temperatura: {promedio:.2f}°C")
+    return ciudad_promedios
 
-
-# Función para seleccionar ciudad y mostrar datos
-def seleccionar_ciudad(temperaturas):
+# Menú interactivo
+def menu_interactivo():
     while True:
         print("\nSeleccione una ciudad:")
         print("1. Ciudad 1 Quito")
@@ -147,27 +136,19 @@ def seleccionar_ciudad(temperaturas):
         print("4. Salir")
 
         opcion = input("Ingrese el número de la opción deseada: ")
-
         if opcion == "1":
-            ciudad_index = 0
+            calcular_promedio(temperaturas[0])
         elif opcion == "2":
-            ciudad_index = 1
+            calcular_promedio(temperaturas[1])
         elif opcion == "3":
-            ciudad_index = 2
+            calcular_promedio(temperaturas[2])
         elif opcion == "4":
             print("Saliendo del programa...")
-            break
+
         else:
             print("Opción no válida, por favor intente de nuevo.")
-            continue
 
-        print(f"\nDatos para Ciudad {ciudad_index + 1}:")
-        for semana_index, semana in enumerate(temperaturas[ciudad_index]):
-            print(f"\nSemana {semana_index + 1}:")
-            for dia in semana:
-                print(f"{dia['day']}: {dia['temp']}°C")
+# Ejecutar el menú interactivo
+menu_interactivo()
 
 
-# Ejecutar funciones
-calcular_promedio_temperaturas(temperaturas)
-seleccionar_ciudad(temperaturas)
